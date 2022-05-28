@@ -5,6 +5,7 @@ import plotly
 import plotly.express as px
 import pymongo
 from pymongo import MongoClient
+import plotly.graph_objects as go
 
 app = Flask(__name__)
 
@@ -20,21 +21,47 @@ def chart1():
     })
     client = pymongo.MongoClient("mongodb://localhost:27017")
     db = client.Population_db
-    collection = db.africanPopulation
+    collection = db.population
     data = pd.DataFrame(list(collection.find()))
-    #data.drop(['_id'], axis = 1)
-    data1= pd.DataFrame(columns =['Year', 'Population','Fertility Rate','Urban Population'])
+
+    data1= pd.DataFrame(columns =['Year', 'African Population','Asian Population','European Population','South American Population','North American Population','Oceanian Population'])
     data1=data[::-1]
     data1
 
 
-    fig = px.line(data1[["Year", "Population"]], x="Year", y=["Year", "Population"], title='African Population')
+    #fig = px.line(data1[['Year', 'African Population','Asian Population','European Population','South American Population','North American Population','Oceanian Population']], x="Year", y=['Year', 'African Population','Asian Population','European Population','South American Population','North American Population','Oceanian Population'], title='African Population')
+    #fig = px.line(data1[['Year', 'African Population']], x='Year', y=['African Population'], title='Population')
+    #fig.add_scatter(x=data1['Year'], y=data1['Asian Population'])
+    data1['African Population']=data1['African Population'].astype(float)
+    data1['African Population']=data1['Asian Population'].astype(float)
+    data1['African Population']=data1['European Population'].astype(float)
+    
+    fig = go.Figure()
+
+
+    fig.add_trace(go.Bar(
+     x = data1['Year'],
+     y = data1['Asian Population'],
+    name = "Asian Population",
+    ))
+
+    fig.add_trace(go.Bar(
+     x = data1['Year'],
+     y = data1['African Population'],
+     name = "African Population",
+    ))
+
+
+
+
+    fig.update_layout(title_text="Multi-category axis")
+
+
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    header="Fruit in North America"
+    header="teeeeeeeeeeeeest"
     description = """
-    A academic study of the number of apples, oranges and bananas in the cities of
-    San Francisco and Montreal would probably not come up with this chart.
+    description
     """
     return render_template('notdash2.html', graphJSON=graphJSON, header=header,description=description)
 
@@ -51,8 +78,7 @@ def chart2():
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     header="Vegetables in Europe"
     description = """
-    The rumor that vegetarians are having a hard time in London and Madrid can probably not be
-    explained by this chart.
+    description
     """
     return render_template('notdash2.html', graphJSON=graphJSON, header=header,description=description)
 
