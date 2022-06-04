@@ -174,4 +174,4 @@ def ruralPopulation():
     fig6 = px.line(data1[['Year', 'Oceanian R.Population']], x='Year', y='Oceanian R.Population', title='Oceanian Rural Population')
     graph6JSON = json.dumps(fig6, cls=plotly.utils.PlotlyJSONEncoder)
     
-    return render_template('population.html', graph1JSON=graph1JSON,  graph2JSON=graph2JSON, graph3JSON=graph3JSON,graph4JSON=graph4JSON,graph5JSON=graph5JSON,graph6JSON=graph6JSON)
+    return render_template('ruralPopulation.html', graph1JSON=graph1JSON,  graph2JSON=graph2JSON, graph3JSON=graph3JSON,graph4JSON=graph4JSON,graph5JSON=graph5JSON,graph6JSON=graph6JSON)

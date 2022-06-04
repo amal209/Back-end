@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Amal\Desktop\nosql\Back-end\env"
+VIRTUAL_ENV="C:\Users\Amal\Desktop\nosql\Data Visualisation App\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
