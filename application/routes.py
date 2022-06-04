@@ -25,7 +25,6 @@ def population():
     db = client.Population_db
     collection = db.population
     data = pd.DataFrame(list(collection.find()))
-
     data1= pd.DataFrame(columns =['Year', 'African Population','Asian Population','European Population','South American Population','North American Population','Oceanian Population'])
     data1=data[::-1]
     #data1
